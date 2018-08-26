@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,21 +8,24 @@
 	
 
 	<script>
-		$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
-			var origplacelist = [];
-			for(var i = 0; i < data._embedded.thoughts.length; i++){
-				origplacelist.push(data._embedded.thoughts[i].place);
-			}
-			var placelist = Array.from(new Set(origplacelist));
+		$(document).ready(function(){
+			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
+				var origplacelist = [];
+				for(var i = 0; i < data._embedded.thoughts.length; i++){
+					origplacelist.push(data._embedded.thoughts[i].place);
+				}
+				var placelist = Array.from(new Set(origplacelist));
 
-			$(".mylist").append(
-				placelist.map(place => {
-					var mylink = $("<a>").text(place);
-					mylink.attr("href", "place.html?place=" + place);
-					return $("<li>").append(mylink);
-				})
-			)
+				$(".mylist").append(
+					placelist.map(place => {
+						var mylink = $("<a>").text(place);
+						mylink.attr("href", "place.html?place=" + place);
+						return $("<li>").append(mylink);
+					})
+				)
+			})
 		})
+
 		
 	</script>
 
@@ -31,6 +35,10 @@
 	<br><br><br>
 	<h3 align="center">Where are you right now?</h3>
 	<br><br>
+
 	<ul class="mylist"></ul>
+	<br><br>
+
+	<a href="create.html">Post your own realization here!</a>
 </body>
 </html>
