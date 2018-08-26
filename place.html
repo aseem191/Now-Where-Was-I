@@ -1,0 +1,48 @@
+<html>
+
+<head>
+	<title>Now where Was I?</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+
+	<script>
+		function getUrlVars()
+		{
+			var vars = [], hash;
+		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++)
+			{
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = hash[1];
+			}
+			return vars;
+		}
+
+		var place = getUrlVars()["place"];
+
+		$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
+			var origthoughtlist = [];
+			for(var i = 0; i < data._embedded.thoughts.length; i++){
+				origthoughtlist.push(data._embedded.thoughts[i].thought);
+			}
+			var thoughtlist = Array.from(new Set(origthoughtlist));
+
+			$(".mylist").append(
+				thoughtlist.map(thought => {
+					var mythought = $("<h4>").text(thought);
+					return $("<li>").append(mythought);
+				})
+			)
+		})
+	</script>
+
+</head>
+<body>
+	<h1 align="center">Now where Was I?</h1>
+
+	<br><br>
+	<ul class="mylist"></ul>
+</body>
+</html>
