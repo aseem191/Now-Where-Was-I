@@ -15,11 +15,15 @@
 
 				var postdata = {
 					thought: serialized[2].value,
-					place: serialized[0].value,
+					place: serialized[0].value.toLowerCase(),
 					time: Number(serialized[1].value),
 				}
 
 				console.log( JSON.stringify(postdata) );
+
+				if(serialized[2].value == "" || serialized[0].value == ""){
+					return;
+				}
 
 
 				$.ajax({
@@ -45,6 +49,7 @@
 	<form class="myform">
 		<div><input type="text" name="place"></div>
 		<div><select name="time">
+			<option value=-1>Any time</option>
 			<option value=0>12 AM</option>
 			<option value=1>1 AM</option>
 			<option value=3>2 AM</option>
