@@ -13,10 +13,20 @@
 		$(document).ready(function(){
 			var placelist = [];
 
+			$(document).on('click', ".item", function()
+			{
+				console.log("$(this).text()")
+				$("#placeInput").text($(this).text());
+			});
+
+			function handler(){
+				console.log("$(this).text()")
+			}
+
 			$(".mylink").on("click", function(){
 				console.log("$(this).text()")
 				$("#placeInput").text($(this).text());
-			})
+			});
 
 			$("#placeInput").focus(function(){
 				$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
@@ -45,8 +55,7 @@
 					$("#mylist").empty();
 					$("#mylist").append(
 						placelist.map(place => {
-							var mylink = $("<a>").text(place);
-							mylink.attr("id", "mylink");
+							var mylink = $("<a class='mylink'></a>").text(place);
 							return $("<div class='item'></div>").append(mylink);
 						})
 					)
@@ -62,8 +71,7 @@
 
 					$("#mylist").append(
 						searchplacelist.map(place => {
-							var mylink = $("<a>").text(place);
-							mylink.attr("id", "mylink");
+							var mylink = $("<a class='mylink'></a>").text(place);
 							return $("<div class='item'></div>").append(mylink);
 						})
 					)
