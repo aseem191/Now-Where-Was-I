@@ -40,18 +40,18 @@
 				}
 				var thoughtlist = Array.from(new Set(origthoughtlist));
 
-				$(".mylist").append(
+				$("#mylist").append(
 					thoughtlist.map(thought => {
 						var mythought = $("<h4>").text(thought.thought);
-						var mytime = $("<ul>").append($("<h6>").text("Realization made at " + thought.time + "."))
-						return $("<li>").append(mythought).append(mytime);
+						var mytime = $("<div style='width:300px' class='ui relaxed divided list'></div>").append($("<h6>").text("Realization made at " + thought.time + "."))
+						return $("<div class='item'></div>").append(mythought).append(mytime);
 					})
 				)
 			})
 
 
-			$(".timeselect").change(function(event) {
-				$(".mylist").empty();
+			$("#timeselect").change(function(event) {
+				$("#mylist").empty();
 				var serialized = $(this).serializeArray();
 				event.preventDefault();
 
@@ -64,11 +64,11 @@
 					}
 					var thoughtlist = Array.from(new Set(origthoughtlist));
 
-					$(".mylist").append(
+					$("#mylist").append(
 						thoughtlist.map(thought => {
 							var mythought = $("<h4>").text(thought.thought);
-							var mytime = $("<ul>").append($("<h6>").text("Realization made at " + thought.time + "."))
-							return $("<li>").append(mythought).append(mytime);
+							var mytime = $("<div style='width:300px' class='ui relaxed divided list'></div>").append($("<h6>").text("Realization made at " + thought.time + "."))
+							return $("<div class='item'></div>").append(mythought).append(mytime);
 						})
 					)
 				})
@@ -78,42 +78,47 @@
 
 </head>
 <body>
-	<h1 align="center">Now where Was I?</h1>
+	<div align="center">
+		<br>
+		<h1>Now where Was I?</h1>
 
-	<br><br>
+		<br><br>
 
-	<h4 align="center" id="placeText"></h4>
-	
-	<form>
-		<div><select name="time" class="timeselect">
-			<option value=-1>Any time</option>
-			<option value=0>12 AM</option>
-			<option value=1>1 AM</option>
-			<option value=3>2 AM</option>
-			<option value=4>3 AM</option>
-			<option value=5>4 AM</option>
-			<option value=6>5 AM</option>
-			<option value=7>6 AM</option>
-			<option value=8>7 AM</option>
-			<option value=9>8 AM</option>
-			<option value=10>9 AM</option>
-			<option value=11>10 AM</option>
-			<option value=12>11 AM</option>
-			<option value=13>12 PM</option>
-			<option value=14>1 PM</option>
-			<option value=15>2 PM</option>
-			<option value=16>3 PM</option>
-			<option value=17>4 PM</option>
-			<option value=18>5 PM</option>
-			<option value=19>6 PM</option>
-			<option value=20>7 PM</option>
-			<option value=21>8 PM</option>
-			<option value=22>9 PM</option>
-			<option value=13>10 PM</option>
-			<option value=24>11 PM</option>
-		</select></div>
-	</form>
+		<h4 id="placeText"></h4>
+		<br>
+		
+		<form>
+			<div><select class="ui dropdown" name="time" id="timeselect">
+				<option value=-1>Any time</option>
+				<option value=0>12 AM</option>
+				<option value=1>1 AM</option>
+				<option value=3>2 AM</option>
+				<option value=4>3 AM</option>
+				<option value=5>4 AM</option>
+				<option value=6>5 AM</option>
+				<option value=7>6 AM</option>
+				<option value=8>7 AM</option>
+				<option value=9>8 AM</option>
+				<option value=10>9 AM</option>
+				<option value=11>10 AM</option>
+				<option value=12>11 AM</option>
+				<option value=13>12 PM</option>
+				<option value=14>1 PM</option>
+				<option value=15>2 PM</option>
+				<option value=16>3 PM</option>
+				<option value=17>4 PM</option>
+				<option value=18>5 PM</option>
+				<option value=19>6 PM</option>
+				<option value=20>7 PM</option>
+				<option value=21>8 PM</option>
+				<option value=22>9 PM</option>
+				<option value=13>10 PM</option>
+				<option value=24>11 PM</option>
+			</select></div>
+		</form>
+		<br>
 
-	<ul class="mylist"></ul>
+		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
+	</div>
 </body>
 </html>
