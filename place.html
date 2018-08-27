@@ -27,6 +27,9 @@
 
 			var place = getUrlVars()["place"];
 
+
+			$("#placeText").text("Realizations made at the " + place);
+
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
 				var origthoughtlist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
@@ -45,13 +48,14 @@
 
 
 			$(".timeselect").change(function(event) {
+				$(".mylist").empty();
 				var serialized = $(this).serializeArray();
 				event.preventDefault();
 
 				$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
 					var origthoughtlist = [];
 					for(var i = 0; i < data._embedded.thoughts.length; i++){
-						if(Number(serialized[0].value) == -1 || (data._embedded.thoughts[i].time - Number(serialized[0].value)) <= 2 || data._embedded.thoughts[i].time == -1){
+						if(Number(serialized[0].value) == -1 || Math.abs(data._embedded.thoughts[i].time - Number(serialized[0].value)) <= 2 || data._embedded.thoughts[i].time == -1){
 							origthoughtlist.push({thought: data._embedded.thoughts[i].thought, time: timelist[data._embedded.thoughts[i].time]});
 						}
 					}
@@ -74,6 +78,8 @@
 	<h1 align="center">Now where Was I?</h1>
 
 	<br><br>
+
+	<h4 align="center" id="placeText"></h4>
 	
 	<form>
 		<div><select name="time" class="timeselect">

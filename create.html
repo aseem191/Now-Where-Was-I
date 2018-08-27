@@ -34,6 +34,9 @@
 					dataType: "json",
 					success: function(){
 						console.log("posted");
+					},
+					complete: function(jqXHR, textStatus) {
+						$("#successText").text("Submission complete")
 					}
 				})
 			});
@@ -78,5 +81,7 @@
 		<div><input type="text" name="thought"></div>
 		<div><input type="submit" value="Submit"></div>
 	</form>
+
+	<h3 id="successText"></h3>
 </body>
 </html>
