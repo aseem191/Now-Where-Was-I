@@ -8,6 +8,8 @@
 	
 
 	<script>
+		var timelist = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"];
+		timelist[-1] = "an unknown time";
 
 		$(document).ready(function(){
 			function getUrlVars()
@@ -28,14 +30,15 @@
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
 				var origthoughtlist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
-					origthoughtlist.push(data._embedded.thoughts[i].thought);
+					origthoughtlist.push({thought: data._embedded.thoughts[i].thought, time: timelist[data._embedded.thoughts[i].time]});
 				}
 				var thoughtlist = Array.from(new Set(origthoughtlist));
 
 				$(".mylist").append(
 					thoughtlist.map(thought => {
-						var mythought = $("<h4>").text(thought);
-						return $("<li>").append(mythought);
+						var mythought = $("<h4>").text(thought.thought);
+						var mytime = $("<ul>").append($("<h6>").text("Realization made at " + thought.time + "."))
+						return $("<li>").append(mythought).append(mytime);
 					})
 				)
 			})
@@ -49,15 +52,16 @@
 					var origthoughtlist = [];
 					for(var i = 0; i < data._embedded.thoughts.length; i++){
 						if(Number(serialized[0].value) == -1 || (data._embedded.thoughts[i].time - Number(serialized[0].value)) <= 2 || data._embedded.thoughts[i].time == -1){
-							origthoughtlist.push(data._embedded.thoughts[i].thought);
+							origthoughtlist.push({thought: data._embedded.thoughts[i].thought, time: timelist[data._embedded.thoughts[i].time]});
 						}
 					}
 					var thoughtlist = Array.from(new Set(origthoughtlist));
 
 					$(".mylist").append(
 						thoughtlist.map(thought => {
-							var mythought = $("<h4>").text(thought);
-							return $("<li>").append(mythought);
+							var mythought = $("<h4>").text(thought.thought);
+							var mytime = $("<ul>").append($("<h6>").text("Realization made at " + thought.time + "."))
+							return $("<li>").append(mythought).append(mytime);
 						})
 					)
 				})
