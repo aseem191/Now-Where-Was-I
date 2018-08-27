@@ -13,19 +13,10 @@
 		$(document).ready(function(){
 			var placelist = [];
 
-			$(document).on('click', ".item", function()
+			$(document).on('click', ".mylink", function()
 			{
-				console.log("$(this).text()")
-				$("#placeInput").text($(this).text());
-			});
-
-			function handler(){
-				console.log("$(this).text()")
-			}
-
-			$(".mylink").on("click", function(){
-				console.log("$(this).text()")
-				$("#placeInput").text($(this).text());
+				console.log($(this).text());
+				$("#placeInput").val($(this).text());
 			});
 
 			$("#placeInput").focus(function(){
@@ -46,7 +37,9 @@
 			})
 
 			$("#placeInput").blur(function(){
-				$("#mylist").empty();
+				setTimeout(function(){
+					$("#mylist").empty();
+				}, 100);
 			})
 
 			$('#placeInput').on('input', function() {
@@ -99,7 +92,7 @@
 					return;
 				}
 
-
+				$("#successText").text("Submitting thought...")
 				$.ajax({
 					url: "https://desolate-castle-53665.herokuapp.com/postrequest",
 					type: "POST",

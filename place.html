@@ -40,6 +40,8 @@
 			$("#placeText").text("Realizations made at the " + place);
 
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
+				$("#mylist").empty();
+				
 				var origthoughtlist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
 					origthoughtlist.push({thought: data._embedded.thoughts[i].thought, time: timelist[data._embedded.thoughts[i].time]});
@@ -124,7 +126,9 @@
 		</form>
 		<br>
 
-		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
+		<div style="width:300px" class="ui relaxed divided list" id="mylist">
+			<h5>Loading thoughts...</h5>
+		</div>
 		<br><br>
 
 		<button class="ui button" id="backButton">

@@ -50,6 +50,8 @@
 			});
 
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
+				$("#mylist").empty();
+
 				var origplacelist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
 					origplacelist.push(data._embedded.thoughts[i].place);
@@ -83,7 +85,9 @@
 		</form>
 		<br>
 
-		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
+		<div style="width:300px" class="ui relaxed divided list" id="mylist">
+			<h5>Loading items...</h5>
+		</div>
 		<br><br>
 		<button class="ui button" id="postButton">
 			Post your own realization here!
