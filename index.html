@@ -12,6 +12,11 @@
 
 	<script>
 		$(document).ready(function(){
+			$('#postButton').click(function() {
+				window.location.href = 'create.html';
+				return false;
+			});
+
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
 				var origplacelist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
@@ -43,8 +48,8 @@
 
 		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
 		<br><br>
-		<button class="ui button">
-			<a href="create.html">Post your own realization here!</a>
+		<button class="ui button" id="postButton">
+			Post your own realization here!
 		</button>
 	</div>
 </body>

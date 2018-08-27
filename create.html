@@ -11,6 +11,11 @@
 
 	<script>
 		$(document).ready(function(){
+			$('#backButton').click(function() {
+				window.location.href = 'index.html';
+				return false;
+			});
+
 			$(".myform").submit(function(event) {
 				var serialized = $(this).serializeArray();
 				event.preventDefault();
@@ -48,14 +53,17 @@
 
 </head>
 <body>
+	<br>
+	<div style="padding-left: 25px;"><button class="ui button" id="backButton">
+		Go back
+	</button></div><br>
 	<div align="center">
-		<br>
 		<h1 align="center">Now where Was I?</h1>
 		<br><br><br>
 
 		<form class="myform">
 			<h4>Enter the location where you came up with this realization:</h4>
-			<div><input type="text" name="place"></div>
+			<div class="ui input"><input type="text" name="place"></div>
 			<br><h4>Enter the time at which you came to this realization:</h4>
 			<div><select class="ui dropdown" name="time">
 				<option value=-1>Any time</option>
@@ -85,12 +93,16 @@
 				<option value=24>11 PM</option>
 			</select></div>
 			<br><h4>Enter your realization:</h4>
-			<div><input type="text" name="thought"></div>
-			<br>
-			<div><input type="submit" value="Submit"></div>
+			<div class="ui input"><input type="text" name="thought"></div>
+			<br><br>
+			<div><input type="submit" value="Submit" class="ui button" ></div>
 		</form>
 
 		<h3 id="successText"></h3>
+
+		<br><br>
+
+		
 	</div>
 </body>
 </html>

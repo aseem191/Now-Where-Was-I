@@ -12,9 +12,15 @@
 
 	<script>
 		var timelist = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"];
-		timelist[-1] = "an unknown time";
+		timelist[-1] = "any time";
 
 		$(document).ready(function(){
+			$('#backButton').click(function() {
+				window.location.href = 'index.html';
+				return false;
+			});
+
+
 			function getUrlVars()
 			{
 				var vars = [], hash;
@@ -82,10 +88,10 @@
 		<br>
 		<h1>Now where Was I?</h1>
 
-		<br><br>
+		<br>
 
 		<h4 id="placeText"></h4>
-		<br>
+		<br><br>
 		
 		<form>
 			<div><select class="ui dropdown" name="time" id="timeselect">
@@ -119,6 +125,12 @@
 		<br>
 
 		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
+		<br><br>
+
+		<button class="ui button" id="backButton">
+			Go back
+		</button>
+
 	</div>
 </body>
 </html>
