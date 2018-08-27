@@ -12,9 +12,41 @@
 
 	<script>
 		$(document).ready(function(){
+			var placelist = [];
 			$('#postButton').click(function() {
 				window.location.href = 'create.html';
 				return false;
+			});
+
+			$('#placeInput').on('input', function() {
+				console.log($("#placeInput").val())
+				if($("#placeInput").val() == ""){
+					$("#mylist").empty();
+					$("#mylist").append(
+						placelist.map(place => {
+							var mylink = $("<a>").text(place);
+							mylink.attr("href", "place.html?place=" + place);
+							return $("<div class='item'></div>").append(mylink);
+						})
+					)
+				}
+				else{
+					$("#mylist").empty();
+					var searchplacelist = [];
+					for(var i = 0; i < placelist.length; i++){
+						if(placelist[i].includes($("#placeInput").val())){
+							searchplacelist.push(placelist[i]);
+						}
+					}
+
+					$("#mylist").append(
+						searchplacelist.map(place => {
+							var mylink = $("<a>").text(place);
+							mylink.attr("href", "place.html?place=" + place);
+							return $("<div class='item'></div>").append(mylink);
+						})
+					)
+				}
 			});
 
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
@@ -22,7 +54,7 @@
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
 					origplacelist.push(data._embedded.thoughts[i].place);
 				}
-				var placelist = Array.from(new Set(origplacelist));
+				placelist = Array.from(new Set(origplacelist));
 
 				$("#mylist").append(
 					placelist.map(place => {
@@ -45,6 +77,11 @@
 		<br><br><br>
 		<h3>Where are you right now?</h3>
 		<br><br>
+
+		<form class="myform">
+			<div class="ui input"><input type="text" name="place" id="placeInput"></div>
+		</form>
+		<br>
 
 		<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
 		<br><br>

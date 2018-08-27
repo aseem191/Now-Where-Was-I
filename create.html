@@ -11,6 +11,65 @@
 
 	<script>
 		$(document).ready(function(){
+			var placelist = [];
+
+			$(".mylink").on("click", function(){
+				console.log("$(this).text()")
+				$("#placeInput").text($(this).text());
+			})
+
+			$("#placeInput").focus(function(){
+				$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
+					var origplacelist = [];
+					for(var i = 0; i < data._embedded.thoughts.length; i++){
+						origplacelist.push(data._embedded.thoughts[i].place);
+					}
+					placelist = Array.from(new Set(origplacelist));
+
+					$("#mylist").append(
+						placelist.map(place => {
+							var mylink = $("<a class='mylink'></a>").text(place);
+							return $("<div class='item'></div>").append(mylink);
+						})
+					)
+				})
+			})
+
+			$("#placeInput").blur(function(){
+				$("#mylist").empty();
+			})
+
+			$('#placeInput').on('input', function() {
+				console.log($("#placeInput").val())
+				if($("#placeInput").val() == ""){
+					$("#mylist").empty();
+					$("#mylist").append(
+						placelist.map(place => {
+							var mylink = $("<a>").text(place);
+							mylink.attr("id", "mylink");
+							return $("<div class='item'></div>").append(mylink);
+						})
+					)
+				}
+				else{
+					$("#mylist").empty();
+					var searchplacelist = [];
+					for(var i = 0; i < placelist.length; i++){
+						if(placelist[i].includes($("#placeInput").val())){
+							searchplacelist.push(placelist[i]);
+						}
+					}
+
+					$("#mylist").append(
+						searchplacelist.map(place => {
+							var mylink = $("<a>").text(place);
+							mylink.attr("id", "mylink");
+							return $("<div class='item'></div>").append(mylink);
+						})
+					)
+				}
+			});
+
 			$('#backButton').click(function() {
 				window.location.href = 'index.html';
 				return false;
@@ -63,7 +122,8 @@
 
 		<form class="myform">
 			<h4>Enter the location where you came up with this realization:</h4>
-			<div class="ui input"><input type="text" name="place"></div>
+			<div class="ui input"><input type="text" name="place" id="placeInput"></div>
+			<div style="width:300px" class="ui relaxed divided list" id="mylist"></div>
 			<br><h4>Enter the time at which you came to this realization:</h4>
 			<div><select class="ui dropdown" name="time">
 				<option value=-1>Any time</option>
