@@ -3,7 +3,8 @@
 
 <head>
 	<title>Now where Was I?</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<link rel="stylesheet" href="index.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" />
@@ -20,6 +21,7 @@
 			});
 
 			$("#placeInput").focus(function(){
+				$("#successText").text("");
 				$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
 					var origplacelist = [];
 					for(var i = 0; i < data._embedded.thoughts.length; i++){
@@ -29,7 +31,7 @@
 
 					$("#mylist").append(
 						placelist.map(place => {
-							var mylink = $("<a class='mylink'></a>").text(place);
+							var mylink = $("<a style='font-size:16px;' class='mylink'></a>").text(place);
 							return $("<div class='item'></div>").append(mylink);
 						})
 					)
@@ -42,13 +44,18 @@
 				}, 100);
 			})
 
+
+			$("#thoughtInput").focus(function(){
+				$("#successText").text("");
+			})
+
 			$('#placeInput').on('input', function() {
 				console.log($("#placeInput").val())
 				if($("#placeInput").val() == ""){
 					$("#mylist").empty();
 					$("#mylist").append(
 						placelist.map(place => {
-							var mylink = $("<a class='mylink'></a>").text(place);
+							var mylink = $("<a style='font-size:16px;' class='mylink'></a>").text(place);
 							return $("<div class='item'></div>").append(mylink);
 						})
 					)
@@ -64,7 +71,7 @@
 
 					$("#mylist").append(
 						searchplacelist.map(place => {
-							var mylink = $("<a class='mylink'></a>").text(place);
+							var mylink = $("<a style='font-size:16px;' class='mylink'></a>").text(place);
 							return $("<div class='item'></div>").append(mylink);
 						})
 					)
@@ -89,6 +96,7 @@
 				console.log( JSON.stringify(postdata) );
 
 				if(serialized[2].value == "" || serialized[0].value == ""){
+					$("#successText").text("One or more fields is left blank. Try again.")
 					return;
 				}
 
@@ -118,7 +126,7 @@
 		Go back
 	</button></div><br>
 	<div align="center">
-		<h1 align="center">Now where Was I?</h1>
+		<h1 style="font-family: 'Acme', sans-serif; font-size:40px;">Now where Was I?</h1>
 		<br><br><br>
 
 		<form class="myform">
@@ -154,9 +162,9 @@
 				<option value=24>11 PM</option>
 			</select></div>
 			<br><h4>Enter your realization:</h4>
-			<div class="ui input"><input type="text" name="thought"></div>
-			<br><br>
-			<div><input type="submit" value="Submit" class="ui button" ></div>
+			<div class="ui input"><input type="text" name="thought" id="thoughtInput" style="width:400px;"></div>
+			<br><br><br>
+			<div><input type="submit" value="Submit" class="ui button"></div>
 		</form>
 
 		<h3 id="successText"></h3>

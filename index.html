@@ -3,7 +3,8 @@
 
 <head>
 	<title>Now where Was I?</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<link rel="stylesheet" href="index.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" />
@@ -24,7 +25,7 @@
 					$("#mylist").empty();
 					$("#mylist").append(
 						placelist.map(place => {
-							var mylink = $("<a>").text(place);
+							var mylink = $("<a style='font-size:16px;'>").text(place);
 							mylink.attr("href", "place.html?place=" + place);
 							return $("<div class='item'></div>").append(mylink);
 						})
@@ -41,7 +42,7 @@
 
 					$("#mylist").append(
 						searchplacelist.map(place => {
-							var mylink = $("<a>").text(place);
+							var mylink = $("<a style='font-size:16px;'>").text(place);
 							mylink.attr("href", "place.html?place=" + place);
 							return $("<div class='item'></div>").append(mylink);
 						})
@@ -60,7 +61,7 @@
 
 				$("#mylist").append(
 					placelist.map(place => {
-						var mylink = $("<a>").text(place);
+						var mylink = $("<a style='font-size:16px;'>").text(place);
 						mylink.attr("href", "place.html?place=" + place);
 						return $("<div class='item'></div>").append(mylink);
 					})
@@ -75,9 +76,10 @@
 <body>
 	<div align="center">
 		<br>
-		<h1>Now where Was I?</h1>
+		<h1 style="font-family: 'Acme', sans-serif; font-size:40px;">Now where Was I?</h1>
 		<br><br><br>
-		<h3>Where are you right now?</h3>
+		<h3 style="font-size:20px;">Where are you right now?</h3>
+		<p style="font-size:14px;">Enter the location where you forgot what you were going to do.</p>
 		<br><br>
 
 		<form class="myform">
@@ -88,9 +90,10 @@
 		<div style="width:300px" class="ui relaxed divided list" id="mylist">
 			<h5>Loading items...</h5>
 		</div>
-		<br><br>
+		<br><br><br><br><br>
+		<p style="font-size:14px;">If you would like to post a realization that you have often, or just had,</p>
 		<button class="ui button" id="postButton">
-			Post your own realization here!
+			Post it here!
 		</button>
 	</div>
 </body>

@@ -3,6 +3,8 @@
 
 <head>
 	<title>Now where Was I?</title>
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
@@ -34,14 +36,14 @@
 				return vars;
 			}
 
-			var place = getUrlVars()["place"];
+			var place = decodeURIComponent(getUrlVars()["place"]);
 
 
-			$("#placeText").text("Realizations made at the " + place);
+			$("#placeText").text("What you may have forgotten about at the " + place + ":");
 
 			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts/search/findAllByPlace?place=" + place, function(data, status){
 				$("#mylist").empty();
-				
+
 				var origthoughtlist = [];
 				for(var i = 0; i < data._embedded.thoughts.length; i++){
 					origthoughtlist.push({thought: data._embedded.thoughts[i].thought, time: timelist[data._embedded.thoughts[i].time]});
@@ -88,12 +90,12 @@
 <body>
 	<div align="center">
 		<br>
-		<h1>Now where Was I?</h1>
+		<h1 style="font-family: 'Acme', sans-serif; font-size:40px;">Now where Was I?</h1>
 
-		<br>
+		<br><br>
 
 		<h4 id="placeText"></h4>
-		<br><br>
+		<br>
 		
 		<form>
 			<div><select class="ui dropdown" name="time" id="timeselect">
