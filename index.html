@@ -13,7 +13,10 @@
 
 	<script>
 		$(document).ready(function(){
+			var myInterval = setInterval(getJson, 5000);
 			var placelist = [];
+			getJson();
+
 			$('#postButton').click(function() {
 				window.location.href = 'create.html';
 				return false;
@@ -49,24 +52,32 @@
 					)
 				}
 			});
+			
+			function getJson(){
+				console.log("getson")
+				if(placelist.length == 0){
+					$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
+						$("#mylist").empty();
 
-			$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
-				$("#mylist").empty();
+						var origplacelist = [];
+						for(var i = 0; i < data._embedded.thoughts.length; i++){
+							origplacelist.push(data._embedded.thoughts[i].place);
+						}
+						placelist = Array.from(new Set(origplacelist));
 
-				var origplacelist = [];
-				for(var i = 0; i < data._embedded.thoughts.length; i++){
-					origplacelist.push(data._embedded.thoughts[i].place);
-				}
-				placelist = Array.from(new Set(origplacelist));
-
-				$("#mylist").append(
-					placelist.map(place => {
-						var mylink = $("<a style='font-size:16px;'>").text(place);
-						mylink.attr("href", "place.html?place=" + place);
-						return $("<div class='item'></div>").append(mylink);
+						$("#mylist").append(
+							placelist.map(place => {
+								var mylink = $("<a style='font-size:16px;'>").text(place);
+								mylink.attr("href", "place.html?place=" + place);
+								return $("<div class='item'></div>").append(mylink);
+							})
+						)
 					})
-				)
-			})
+				}
+				else{
+					clearInterval(myInterval);
+				}
+			}
 		})
 
 		
