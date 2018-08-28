@@ -52,9 +52,8 @@
 					)
 				}
 			});
-			
+
 			function getJson(){
-				console.log("getson")
 				if(placelist.length == 0){
 					$.getJSON("https://desolate-castle-53665.herokuapp.com/thoughts", function(data, status){
 						$("#mylist").empty();
@@ -106,6 +105,9 @@
 		<button class="ui button" id="postButton" style="background-color: #d6ecff;">
 			Post it here!
 		</button>
+		<br><br><br><br><br>
+		<h6 style="font-size:11px;">Created by Aseem Sane. To visit the GitHub repository for this project, go <a href="https://github.com/aseem191/Now-where-Was-I" style="font-size:11px;">here</a>.</h6>
+		<br><br>
 	</div>
 </body>
 </html>
