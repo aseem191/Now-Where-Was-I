@@ -1,4 +1,4 @@
-# Now where Was I?
+# Now Where Was I?
 
 
 Have you ever forgotten what you were going to do a few seconds ago before you entered a room? If you have, this site is for you! Simply enter where you were when you forgot, and predictions of what you forgot will be displayed. Visit https://aseem191.github.io/Now-where-Was-I/ to use the app!
